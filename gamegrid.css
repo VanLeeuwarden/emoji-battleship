@@ -1,0 +1,18 @@
+
+.game-grid {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-gap: 3.5px 3.5px;
+}
+
+.game-grid .cell {
+  padding: 1px;
+  border: 0.5px solid pink;
+  opacity: .8;
+}
+
+.cell:hover {
+  opacity: 1;
+  border: 1px solid blue;
+}

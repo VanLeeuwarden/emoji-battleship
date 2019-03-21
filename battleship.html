@@ -4,11 +4,24 @@
 <html>
 
   <head>
-    <link rel="stylesheet" herf="gamegrid.css" type="text/css"/>
-    <script rel="script" type="text/javascript" src="/index.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="gamegrid.css" type="text/css"/>
+
+    <!-- external JS -->
+    <script type="text/javascript" src="vendor/jquery-2.2.3.min.js"></script>
+
+    <script rel="script" type="text/javascript" src="index.js"></script>
   </head>
 
   <body>
+
+    <h1>This is the battleship game</h1>
+
+    <section id="player-grid" class="game-grid">
+    </section>
+
+    <section id="opponent-grid" class="game-grid">
+    </section>
   </body>
 
 </html>
