@@ -4,6 +4,10 @@ $(document).ready(function() {
   $board = newBoard("playerBoard");
   $board.addClass("game-grid");
   $("#player-container").append($board);
+
+/*  $board = newBoard("opponentBoard");
+  $board.addClass("game-grid");
+  $("#opponent-container").append($board);*/
 });
 
 function newCell(row_i, col_j, celltype) {
@@ -17,8 +21,8 @@ function newCell(row_i, col_j, celltype) {
 function newRow(row_i, celltype) {
   let $row = $("<div>");//.addClass("game-row");
   for (let j=0; j < 10; j++) {
-    col_j = "col_" + j;
-    let $cell = newCell(row_i, col_j, celltype);
+    row_j = "row_" + j;
+    let $cell = newCell(row_i, row_j, celltype);
     $row.append($cell);
   }
   return $row;
@@ -28,16 +32,36 @@ function newRow(row_i, celltype) {
 function newBoard(celltype) {
   let $section = $("<section>");
   for (let i = 0; i < 10; i++) {
-    row_i = "row_" + i;
-    let $row = newRow(row_i, celltype);
+    col_i = "col_" + i;
+    let $row = newRow(col_i, celltype);
     $section.append($row);
   }
   return $section;
 }
 
 function cellClick() {
+  let moveObject = {};
   let classList = $(this).attr("Class").split(/\s+/);
-  for (elemClass of classList) {
-    console.log(elemClass);
+  classList.forEach( (classElem) => parseClassList(classElem, moveObject));
+  console.log(moveObject);
+
+  if (moveObject.row === 2) {
+    $(this).attr("src", "icons/angry.svg");
   }
 }
+
+function parseClassList(classElem, moveObject) {
+  if (classElem.slice(0,3) === "row") {
+    moveObject.row = parseInt(classElem.charAt(4));
+  }
+  else if (classElem.slice(0,3) === "col") {
+    moveObject.col = parseInt(classElem.charAt(4));
+  }
+  else if (classElem === "playerBoard") {
+    moveObject.board = "player";
+  } else if (classElem === "opponentBoard") {
+    moveObject.board = "opponent";
+  }
+}
+
+function classToObject() {}
