@@ -1,3 +1,18 @@
+.grids {
+  display: inline-flex;
+  margin-top: 40px;
+/*  background-color: #AFE0FF;
+*/}
+
+#player-container {
+  margin-right: 60px;
+  margin-left: 50px;
+}
+
+#opponent-container {
+  margin-left: 60px;
+}
+
 
 .game-grid {
   display: grid;
@@ -8,11 +23,13 @@
 
 .game-grid .cell {
   padding: 1px;
-  border: 0.5px solid pink;
+  border: 0.5px solid #ffcb4f;
   opacity: .8;
+  width: 46px;
+  height: 46px;
 }
 
 .cell:hover {
   opacity: 1;
-  border: 1px solid blue;
+  border: 1px solid #fa5a5a;
 }
