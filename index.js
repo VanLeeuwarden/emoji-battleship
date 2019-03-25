@@ -29,7 +29,7 @@ function newCell(row_i, col_j, celltype) {
 }
 
 function newRow(row_i, celltype) {
-  let $row = $("<div>");//.addClass("game-row");
+  let $row = $("<div>").addClass("game-row");
   for (let j=0; j < 10; j++) {
     row_j = "row_" + j;
     let $cell = newCell(row_i, row_j, celltype);

@@ -4,8 +4,12 @@
 <html>
 
   <head>
+    <link rel="stylesheet" href="normalize-4.1.1.css" type="text/css" />
     <meta charset="UTF-8">
     <link rel="stylesheet" href="gamegrid.css" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Armata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
     <!-- external JS -->
     <script type="text/javascript" src="vendor/jquery-2.2.3.min.js"></script>
@@ -17,20 +21,47 @@
 
   <body>
 
-    <h1>This is the battleship game</h1>
-
-    <div class="grids">
-
-      <section id="player-container">
-      </section>
-
-      <div><br/></div>
-
-      <section id="opponent-container">
-      </section>
-
+    <div class="title">
+      <div id="emoji">Emoji&nbsp</div> <div id="battleship">Battleship</div>
     </div>
+
+    <div class="buttons-container">
+      <button id="start-game-button" class="intro-button">Start Game</button>
+      <button id="randomize-positions" class="intro-button">Randomize</button>
+    </div>
+
+    <div class="grids-container">
+      <div id="player-container">
+        <div class="grid-label" id="player-grid-label">Player Grid</div>
+      </div>
+
+      <div class="arrow-divisor">
+        <div class="arrow-box" id="arrows-up">
+          <img src="icons/arrows_up.svg" class="arrows">
+          Game Menu
+        </div>
+
+        <div class="arrow-box" id="arrows-left">
+          <img src="icons/arrows_left.svg" class="arrows">
+          Enemy Turn
+        </div>
+
+        <div class="arrow-box" id="arrows-right">
+          <img src="icons/arrows_right.svg" class="arrows">
+          Your Turn
+        </div>
+      </div>
+
+      <div id="opponent-container">
+        <div class="grid-label" id="opponent-grid-label">Opponent Grid</div>
+      </div>
+    </div>
+
   </body>
+
+  <footer>
+    Thanks for playing! :)
+  </footer>
 
 </html>
 

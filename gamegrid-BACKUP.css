@@ -1,0 +1,84 @@
+* {
+  font-family: 'Armata', sans-serif;
+  background-color: #cfecff;
+/*  background-color: #cef4ff;
+*/}
+
+.title {
+  display: inline-flex;
+  font-size: 65px;
+  margin-left: 60px;
+}
+
+#emoji {
+  font-family: 'Lobster', cursive;
+  text-decoration: underline;
+}
+
+#battleship {
+  font-family: 'Black Ops One', cursive;
+}
+.grids {
+  display: inline-flex;
+  margin-top: 40px;
+/*  background-color: #AFE0FF;
+*/}
+
+#player-container {
+  margin-right: 60px;
+  margin-left: 60px;
+}
+
+#opponent-container {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+
+.game-grid {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-gap: 3.5px 3.5px;
+}
+
+.game-grid .cell {
+  padding: 1px;
+  border: 0.5px solid #ffcb4f;
+  opacity: .8;
+  width: 46px;
+  height: 46px;
+}
+
+.cell:hover {
+  opacity: 1;
+  border: 1px solid #fa5a5a;
+}
+
+#buttons-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-top: 15px;
+}
+
+#buttons-container .intro-button {
+  height: 70px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: #ffcb4f;
+  box-shadow: 4px 4px #b28e37;
+  text-align: center;
+  margin-right: 30px
+}
+#start-game-button {
+  margin-bottom: 10px;
+}
+
+#buttons-container .intro-button:hover {
+  background-color: #fa5a5a;
+  box-shadow: 2px 2px 2px #fc9c9c; /*3px 3px #963636,*/
+}
