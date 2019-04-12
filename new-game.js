@@ -1,56 +1,49 @@
-let gameBeingPlayed = false;
-let gridClickable = false;
-
-function playGame() {
-  // hide buttons
-  // show textbox
-  // update arrow grid
-  // message log
-  toggleGridClick();
-}
-
-function onClickPlay() {
-  toggleGridClick();
-  // update icon
-  // message log hit/miss
-  // check ship sink condition --> message log
-  // check win condition --> message log
-  // update arrow box
-
-  //opponentTurn();
-}
-
 function opponentTurn() {
-  // update arrow box
-  // simulateDelay();
-  // aim & update icon
-  let shot = opponentAim();
-  let row = shot[0];
-  let col = shot[1];
-  // message log
-  let shotAt = playerGrid[row][col];
-  let playerClass = getCoordinateClass(row, col, "player");
-  if (shotAt === "sea") {
-    playerGrid[row][col] = "miss";
-    let newSource = iconCorrespondence.miss;
-    $(playerClass).attr("src", newSource);
-    passMessage("opponent missed", "red");
-  } else {
-    playerGrid[shot[0]][shot[1]] = "playerSunk";
-    let newSource = iconCorrespondence.playerSunk;
-    $(playerClass).attr("src", newSource);
-    passMessage("you were hit!", "red");
-  }
-
-  // simluate delay
-  // check ship sink condition --> message log
-  // check win conditions --> message log
-  // update arrow box
   toggleGridClick();
+  // check player won
+  // ?
+  if (hasWon(opponentGrid)) {
+    passMessage("You Won!!!", "green");
+  } else {
+    updateArrows('#arrows-right', '#arrows-left');
+
+    // simulateDelay();
+    setTimeout( function() {
+      let shot = opponentAim();
+      let row = shot[0];
+      let col = shot[1];
+      // message log
+      let shotAt = playerGrid[row][col];
+      let playerClass = getCoordinateClass(row, col, "player");
+      if (shotAt === "sea") {
+        playerGrid[row][col] = "miss";
+        let newSource = iconCorrespondence.miss;
+        $(playerClass).attr("src", newSource);
+        passMessage("opponent missed", "red");
+      } else {
+        playerGrid[shot[0]][shot[1]] = "playerSunk";
+        let newSource = iconCorrespondence.playerSunk;
+        $(playerClass).attr("src", newSource);
+        passMessage("you were hit!", "red");
+      }
+
+      // simluate delay
+      // check ship sink condition --> message log
+      // check win conditions --> message log
+      // ?
+      if (hasWon(playerGrid)) {
+        passMessage("You Lost", "green");
+      } else {
+        // update arrow box
+        updateArrows('#arrows-left', '#arrows-right');
+        toggleGridClick();
+      }
+      }, 1800);
+  }
 }
 
 function toggleGridClick() {
-  gridClickable != gridClickable;
+  gridClickable = !gridClickable;
 }
 
 function getPlayerShipLocations() {
@@ -92,4 +85,16 @@ function opponentAim() {
     }
     return possibleGuess
   }
+}
+
+function hasWon(grid) {
+  const nonShips = ["sea", "miss", "playerSunk", "hit"];
+  for (let i=0; i<10; i++) {
+    for (let j=0; j<10; j++) {
+      if (!(nonShips.includes(grid[i][j]))) {
+        return false
+      }
+    }
+  }
+  return true
 }
