@@ -1,30 +1,54 @@
-let playerGrid = createGrid();
-let opponentGrid = createGrid();
+let playerGrid
+let opponentGrid
+let aiDifficulty = 50;
 
 $(document).ready(function() {
+  $("#message-log").hide();
 
-
-  populateGrid(playerGrid);
-  populateGrid(opponentGrid);
-
-
+  // make player board
+  playerGrid = newRandomGrid();
   $board = newBoard("playerBoard");
   $board.addClass("game-grid");
   $("#player-container").append($board);
 
+  // make opponent board
+  opponentGrid = newRandomGrid();
   $board = newBoard("opponentBoard");
   $board.addClass("game-grid");
   $("#opponent-container").append($board);
 
-
   updateIcons(playerGrid, opponentGrid);
+
+  $("#randomize-positions").click( () => {
+    playerGrid = newRandomGrid();
+    updateIcons(playerGrid, opponentGrid);
+  });
+
+  $("#start-game-button").click( () => {
+    $(".buttons-container").addClass("button-hide");
+    $("#message-log").show();
+    passMessage("begin", "blue");
+/*    $newGame = $("<div>").addClass("message-alert");
+    $newGame.html("game has begun");
+    $("#message-log").append($newGame);*/
+    // change arrow box colour
+  })
+
 });
+
+function passMessage(message, colour) {
+  $message = $("<div>").addClass("message-alert").addClass("message-"+colour);
+  $message.html(message);
+  $("#message-log").append($message);
+}
 
 function newCell(row_i, col_j, celltype) {
   let $cell = $("<img>").addClass("cell");
   $cell.addClass(row_i).addClass(col_j).addClass(celltype);
   $cell.attr("src", "icons/sea.svg");
-  $cell.click(cellClick);
+  if (celltype === "opponentBoard") {
+    $cell.click(opponentCellClick);
+  }
   return $cell;
 }
 
@@ -81,6 +105,29 @@ function cellClick() {
   }
 }
 
+function opponentCellClick() {
+  let moveObject = {};
+  let classList = $(this).attr("Class").split(/\s+/);
+  classList.forEach( (classElem) => parseClassList(classElem, moveObject));
+
+  let row = moveObject.row;
+  let col = moveObject.col;
+  let opponentClass = getCoordinateClass(row, col, "opponent");
+
+  if (opponentGrid[row][col] === "sea") {
+    $(opponentClass).attr("src", iconCorrespondence.miss);
+    passMessage("you missed", "red");
+  } else {
+    $(opponentClass).attr("src", iconCorrespondence.opponentSunk);
+    passMessage("you hit a ship", "blue");
+  }
+
+  $(this).off("click");
+  // remove glow
+  // $(this)
+  opponentTurn();
+}
+
 function parseClassList(classElem, moveObject) {
   if (classElem.slice(0,3) === "row") {
     moveObject.row = parseInt(classElem.charAt(4));
@@ -95,7 +142,6 @@ function parseClassList(classElem, moveObject) {
   }
 }
 
-function classToObject() {}
 
 const iconCorrespondence = {
   carrier: "icons/angry.svg",
@@ -154,6 +200,15 @@ function updateIcons(playerGrid, opponentGrid) {
   }
 }
 
+function updatePlayerIcons() {
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      let playerClass = getCoordinateClass(i,j,"player");
+      let playerShip = playerGrid[i][j]
+    }
+  }
+}
+
 function getCoordinateClass(i,j,type) {
   let row = ".row_" + i;
   let col = ".col_" + j;
@@ -164,93 +219,10 @@ function getCoordinateClass(i,j,type) {
 }
 
 
+// BUTTON FUNCTIONS
 
-
-
-
-
-
-// SHIP METHODS
-
-function canPlaceShip(grid, shipSize, row, column, isVertical) {
-  if (isVertical) {
-    return canPlaceShipVertical(grid, shipSize, row, column);
-  } else {
-    return canPlaceShipHorizontal(grid, shipSize, row, column);
-  }
-}
-
-function canPlaceShipHorizontal(grid, shipSize, row, col) {
-  for (var i = 0; i < shipSize; i++) {
-    if (!validSpot(grid, row, col+i)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function canPlaceShipVertical(grid, shipSize, row, col) {
-  for (var i = 0; i < shipSize; i++) {
-    if (!validSpot(grid, row+i, col)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function placeShip(grid, shipSize, shipIcon, row, col, isVertical) {
-  if (isVertical) {
-    placeShipVertical(grid, shipSize, shipIcon, row, col)
-  } else {
-    placeShipHorizontal(grid, shipSize, shipIcon, row, col)
-  }
-}
-
-function placeShipHorizontal(grid, shipSize, shipIcon, row, col) {
-  for (var i = 0; i < shipSize; i++) {
-    grid[row][col+i] = shipIcon;
-  }
-}
-
-function placeShipVertical(grid, shipSize, shipIcon, row, col) {
-  for (var i = 0; i < shipSize; i++) {
-    grid[row+i][col] = shipIcon;
-  }
-}
-
-
-function validSpot(grid, row, col) {
-  if (grid[row]) {
-    if (grid[row][col]) {
-      if (grid[row][col] === "sea") {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-function getRandomPoint() {
-  var row = Math.floor(10 * Math.random());
-  var column = Math.floor(10 * Math.random());
-  return [row, column];
-}
-
-function populateGrid(grid) {
-  var shipTileLengths = [5,4,3,3,2];
-  let shipTileIdentifier = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
-
-  for (var ship=0 ; ship < 5 ; ship++) {
-    while (true) {
-      var possiblePoint = getRandomPoint();
-      const row = possiblePoint[0];
-      const col = possiblePoint[1];
-      var isVert = !!Math.floor(2 * Math.random());
-
-      if (canPlaceShip(grid, shipTileLengths[ship], row, col, isVert)) {
-        placeShip(grid, shipTileLengths[ship], shipTileIdentifier[ship], row, col, isVert);
-        break;
-      }
-    }
-  }
+function newRandomGrid() {
+  let grid = createGrid();
+  populateGrid(grid);
+  return grid;
 }

@@ -4,6 +4,8 @@
 <html>
 
   <head>
+    <title> Emoji Battleship </title>
+
     <link rel="stylesheet" href="normalize-4.1.1.css" type="text/css" />
     <meta charset="UTF-8">
     <link rel="stylesheet" href="gamegrid.css" type="text/css"/>
@@ -16,6 +18,8 @@
 
     <!-- <script rel="script" type="text/javascript" src="ship.js"></script> -->
     <script rel="script" type="text/javascript" src="index.js"></script>
+    <script rel="script" type="text/javascript" src=game-functions.js></script>
+    <script rel="script" type="text/javascript" src=new-game.js></script>
 
   </head>
 
@@ -29,6 +33,9 @@
       <button id="start-game-button" class="intro-button">Start Game</button>
       <button id="randomize-positions" class="intro-button">Randomize</button>
     </div>
+
+    <section id="message-log" class=message-log-hide>
+    </section>
 
     <div class="grids-container">
       <div id="player-container">

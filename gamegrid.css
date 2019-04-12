@@ -52,6 +52,29 @@ body {
   box-shadow: 2px 2px 2px #fc9c9c;
 }
 
+.button-hide {
+  display: none;
+}
+
+
+#message-log {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr [col-start]);
+  grid-template-rows: repeat(4, 1fr [row-start]);
+
+  min-height: 100px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border: 3px solid black;
+
+}
+
+/*.message-log-hide {
+  display: none;
+}*/
+
 
 
 .grids-container {
@@ -141,3 +164,46 @@ footer {
   margin: 30px;
   font-size: 12px;
 }
+
+
+
+/*TEMPLATE COLORS
+BLUE
+light
+0% #cfecff
+10% #d4eeff
+20% #d9f0ff
+30% #ddf2ff
+40% #e2f4ff
+dark
+0% #cfecff
+10% #bad4e6
+20% #a6bdcc
+30% #91a5b2
+40% #7c8e99
+RED
+light
+0% #fa5a5a
+10% #fb6b6b
+20% #fb7b7b
+30% #fc8c8c
+40% #fc9c9c
+dark
+0% #fa5a5a
+10% #e15151
+20% #c84848
+30% #af3f3f
+40% #963636
+YELLOW
+light
+0% #ffcb4f
+10% #ffd061
+20% #ffd572
+30% #ffdb84
+40% #ffe095
+dark
+0% #ffcb4f
+10% #e6b747
+20% #cca23f
+30% #b28e37
+40% #997a2f*/
